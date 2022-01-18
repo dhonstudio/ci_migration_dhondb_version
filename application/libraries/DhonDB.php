@@ -94,5 +94,10 @@ Class DhonDB {
         $migration_name = "Migration_{$classname}";
         $migration      = new $migration_name();
         $migration->up();
+
+        $this->table = 'migrations';
+        $this->constraint('20')->field('version', 'BIGINT');
+        $this->create_table();
+        $this->dhondb->db->insert($this->table, ['version' => $this->version]);
     }
 }
